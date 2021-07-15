@@ -88,7 +88,7 @@ class Console
             $env = array_merge($_ENV, $this->envopts);
         }
         $cwd = $this->currentPath;
-        $resource = proc_open($command, $descriptorSpec, $pipes, $cwd, $env);
+        $resource = proc_open($command, $descriptorSpec, $pipes, $cwd, $env, (0 === stripos(PHP_OS, 'WIN')) ? ['bypass_shell' => true] : null);
 
         $stdout = stream_get_contents($pipes[1]);
         $stderr = stream_get_contents($pipes[2]);
